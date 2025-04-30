@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'view/home/home.dart';
+import 'viewmodel/product_detail_provider/product_detail.dart';
 
 void main() {
-  runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => HomeProvider())],
-      child: const MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => HomeProvider()),
+    ChangeNotifierProvider(create: (_) => ProductDetailProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
