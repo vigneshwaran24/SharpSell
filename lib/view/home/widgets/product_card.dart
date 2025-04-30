@@ -2,6 +2,9 @@ import 'package:ecom_app/core/utls.dart';
 import 'package:ecom_app/model/models/product.dart';
 import 'package:ecom_app/view/product_details/product_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../viewmodel/cart/cart.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductsModel data;
@@ -9,6 +12,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartProv = Provider.of<CartProvider>(context);
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -18,40 +23,49 @@ class ProductCard extends StatelessWidget {
       },
       child: Stack(
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Image.network(
-                  height: 150,
-                  width: double.maxFinite,
-                  data.images?.first ?? "",
-                  fit: BoxFit.fitWidth,
-                  errorBuilder: (context, error, stackTrace) => Container(
-                    height: 150,
-                    color: Colors.grey,
-                    child: Center(
-                      child: Text("No Image \nAvailable"),
-                    ),
-                  ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Image.network(
+                      height: 150,
+                      width: double.maxFinite,
+                      data.images?.first ?? "",
+                      fit: BoxFit.fitWidth,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Image.network(
+                              height: 150,
+                              "https://picsum.photos/250?image=30")),
                 ),
-              ),
-              verticalGap(10),
-              Text(
-                data.title ?? "N/A",
-                style: TextStyle(overflow: TextOverflow.ellipsis),
-                maxLines: 2,
-              ),
-              verticalGap(10),
-              Text("Rs: ${data.price}")
-            ],
+                verticalGap(10),
+                Text(
+                  data.title ?? "N/A",
+                  style: TextStyle(overflow: TextOverflow.ellipsis),
+                  maxLines: 2,
+                ),
+                verticalGap(10),
+                Text("Rs: ${data.price}")
+              ],
+            ),
           ),
           Positioned(
-              right: 0,
+              right: 10,
               child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.add_circle_outline_rounded)))
+                  onPressed: () {
+                    if (cartProv.isAdded(data.id)) {
+                      cartProv.removeFromCart(data.id);
+                      removedSnack(context);
+                    } else {
+                      cartProv.addtoCart(data);
+                      addedSnack(context);
+                    }
+                  },
+                  icon: cartProv.isAdded(data.id)
+                      ? Icon(Icons.add_circle)
+                      : Icon(Icons.add_circle_outline_rounded)))
         ],
       ),
     );

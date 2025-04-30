@@ -1,5 +1,8 @@
 import 'package:ecom_app/core/utls.dart';
+import 'package:ecom_app/view/cart/cart.dart';
+import 'package:ecom_app/view/categories/category.dart';
 import 'package:ecom_app/view/home/widgets/categories_card.dart';
+
 import 'package:ecom_app/viewmodel/home_provider/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,12 +49,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<HomeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("SharpSell"),
         actions: [
           IconButton(
-              onPressed: () {}, icon: Icon(Icons.shopping_cart_checkout_sharp))
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => CartScreen()));
+              },
+              icon: Icon(Icons.shopping_cart_checkout_sharp))
         ],
       ),
       body: Padding(
@@ -67,7 +75,12 @@ class _HomePageState extends State<HomePage> {
                     hintText: "Search here", prefixIcon: Icon(Icons.search)),
               ),
               verticalGap(10),
-              Text("Categories"),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => CategoryScreen()));
+                  },
+                  child: Text("Categories")),
               verticalGap(10),
               SizedBox(
                 height: 150,

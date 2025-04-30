@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:ecom_app/core/apis.dart';
 
 import 'package:http/http.dart' as http;
@@ -10,23 +11,23 @@ class ProductDetailService {
   static Future getProductDetails({required int id}) async {
     try {
       Uri url = Uri.parse("${Apis.productDetailUrl}$id");
-      print("${Apis.productDetailUrl}$id");
+      // print("${Apis.productDetailUrl}$id");
       var response = await http.get(url);
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 200) {
         var result = jsonDecode(response.body);
 
         return ProductDetailModel.fromJson(result);
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
   static Future getSimilarProducts({required int id}) async {
     try {
       Uri url = Uri.parse("${Apis.similarProUrl}$id/related");
-      print("${Apis.similarProUrl}$id/related");
+      // print("${Apis.similarProUrl}$id/related");
       var response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -37,7 +38,7 @@ class ProductDetailService {
         }
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 }

@@ -7,18 +7,11 @@ class CategorieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 140,
-      width: 140,
-      child: Image.network(
+    return Image.network(
+        height: 140,
+        width: 140,
         data.image ?? "",
-        errorBuilder: (context, error, stackTrace) => Container(
-          color: Colors.grey,
-          child: Center(
-            child: Text("No Image \nAvailable"),
-          ),
-        ),
-      ),
-    );
+        errorBuilder: (context, error, stackTrace) =>
+            Image.network("https://picsum.photos/250?image=30"));
   }
 }

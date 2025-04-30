@@ -2,6 +2,10 @@ import 'package:ecom_app/core/utls.dart';
 import 'package:ecom_app/model/models/product.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../viewmodel/cart/cart.dart';
+import '../product_detail.dart';
 
 class SimilarCard extends StatelessWidget {
   final ProductsModel data;
@@ -9,15 +13,17 @@ class SimilarCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartProv = Provider.of<CartProvider>(context);
+
     return SizedBox(
       // height: 200,
       width: 150,
       child: InkWell(
         onTap: () {
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (_) => ProductDetailScreen(id: data.id ?? -1)));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ProductDetailScreen(id: data.id ?? -1)));
         },
         child: Stack(
           children: [
@@ -31,13 +37,8 @@ class SimilarCard extends StatelessWidget {
                     width: double.maxFinite,
                     data.images?.first ?? "",
                     fit: BoxFit.fitWidth,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      height: 150,
-                      color: Colors.grey,
-                      child: Center(
-                        child: Text("No Image \nAvailable"),
-                      ),
-                    ),
+                    errorBuilder: (context, error, stackTrace) => Image.network(
+                        height: 100, "https://picsum.photos/250?image=30"),
                   ),
                 ),
                 verticalGap(10),
@@ -53,8 +54,18 @@ class SimilarCard extends StatelessWidget {
             Positioned(
                 right: 0,
                 child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.add_circle_outline_rounded)))
+                    onPressed: () {
+                      if (cartProv.isAdded(data.id)) {
+                        cartProv.removeFromCart(data.id);
+                        removedSnack(context);
+                      } else {
+                        cartProv.addtoCart(data);
+                        addedSnack(context);
+                      }
+                    },
+                    icon: cartProv.isAdded(data.id)
+                        ? Icon(Icons.add_circle)
+                        : Icon(Icons.add_circle_outline_rounded)))
           ],
         ),
       ),

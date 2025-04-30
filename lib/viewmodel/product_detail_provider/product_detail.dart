@@ -12,6 +12,9 @@ class ProductDetailProvider extends ChangeNotifier {
     details = null;
     isLoading = true;
     var result = await ProductDetailService.getProductDetails(id: id);
+    isLoading = false;
+    notifyListeners();
+
     if (result == null) return;
     isLoading = false;
     details = result;

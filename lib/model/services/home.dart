@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:ecom_app/core/apis.dart';
 import 'package:ecom_app/model/models/product.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,6 @@ class HomeService {
     try {
       Uri url = Uri.parse(Apis.productsUrl)
           .replace(queryParameters: {"limit": "$limit", "offset": "$offset"});
-      print(url.queryParameters);
       var response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -21,13 +21,12 @@ class HomeService {
         }
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 
   static Future getCategories({required int limit}) async {
     try {
-      print(limit);
       Uri url = Uri.parse(Apis.categorieUrl)
           .replace(queryParameters: {"limit": "$limit"});
       var response = await http.get(url);
@@ -39,7 +38,7 @@ class HomeService {
         }
       }
     } catch (e) {
-      print(e.toString());
+      log(e.toString());
     }
   }
 }

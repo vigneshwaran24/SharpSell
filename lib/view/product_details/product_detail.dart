@@ -1,10 +1,13 @@
 import 'package:ecom_app/core/utls.dart';
+import 'package:ecom_app/model/models/product.dart';
 import 'package:ecom_app/model/models/product_details.dart';
 
 import 'package:ecom_app/viewmodel/product_detail_provider/product_detail.dart';
-import 'package:ecom_app/viewmodel/product_detail_provider/widgets/similar_card.dart';
+import 'package:ecom_app/view/product_details/widgets/similar_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../viewmodel/cart/cart.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final int id;
@@ -30,6 +33,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductDetailProvider>(context);
     details = provider.getDetails;
+
+    final cartProv = Provider.of<CartProvider>(context);
+
     return Scaffold(
       appBar: AppBar(),
       body: provider.isLoading
@@ -53,13 +59,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               fit: BoxFit.fitHeight,
                               details?.images?.first ?? "",
                               errorBuilder: (context, error, stackTrace) =>
-                                  Container(
-                                height: 250,
-                                color: Colors.grey,
-                                child: Center(
-                                  child: Text("No Image \nAvailable"),
-                                ),
-                              ),
+                                  Image.network(
+                                      height: 180,
+                                      "https://picsum.photos/250?image=30"),
                             ),
                             verticalGap(10),
                             Row(
@@ -83,8 +85,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(4))),
-                                    onPressed: () {},
-                                    child: Text("Add"))
+                                    onPressed: () {
+                                      if (cartProv.isAdded(details?.id ?? -1)) {
+                                        cartProv.removeFromCart(details?.id);
+                                        removedSnack(context);
+                                      } else {
+                                        cartProv.addtoCart(
+                                            ProductsModel.fromJson(
+                                                details?.toJson() ?? {}));
+                                        addedSnack(context);
+                                      }
+                                    },
+                                    child: Text(
+                                        cartProv.isAdded(details?.id ?? -1)
+                                            ? "Remove From Cart"
+                                            : "Add"))
                               ],
                             ),
                             Flexible(

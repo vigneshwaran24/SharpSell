@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'view/home/home.dart';
+import 'viewmodel/cart/cart.dart';
+import 'viewmodel/category_details/category_provider.dart';
 import 'viewmodel/product_detail_provider/product_detail.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => HomeProvider()),
     ChangeNotifierProvider(create: (_) => ProductDetailProvider()),
+    ChangeNotifierProvider(create: (_) => CategoryProvider()),
+    ChangeNotifierProvider(create: (_) => CartProvider()),
   ], child: const MyApp()));
 }
 
