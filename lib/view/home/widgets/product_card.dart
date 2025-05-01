@@ -36,9 +36,7 @@ class ProductCard extends StatelessWidget {
                       data.images?.first ?? "",
                       fit: BoxFit.fitWidth,
                       errorBuilder: (context, error, stackTrace) =>
-                          Image.network(
-                              height: 150,
-                              "https://picsum.photos/250?image=30")),
+                          Image.network(height: 150, dummyImg)),
                 ),
                 verticalGap(10),
                 Text(

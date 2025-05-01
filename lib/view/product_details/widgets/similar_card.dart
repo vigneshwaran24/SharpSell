@@ -37,8 +37,8 @@ class SimilarCard extends StatelessWidget {
                     width: double.maxFinite,
                     data.images?.first ?? "",
                     fit: BoxFit.fitWidth,
-                    errorBuilder: (context, error, stackTrace) => Image.network(
-                        height: 100, "https://picsum.photos/250?image=30"),
+                    errorBuilder: (context, error, stackTrace) =>
+                        Image.network(height: 100, dummyImg),
                   ),
                 ),
                 verticalGap(10),

@@ -59,9 +59,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               fit: BoxFit.fitHeight,
                               details?.images?.first ?? "",
                               errorBuilder: (context, error, stackTrace) =>
-                                  Image.network(
-                                      height: 180,
-                                      "https://picsum.photos/250?image=30"),
+                                  Image.network(height: 180, dummyImg),
                             ),
                             verticalGap(10),
                             Row(

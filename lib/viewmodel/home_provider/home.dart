@@ -69,4 +69,13 @@ class HomeProvider extends ChangeNotifier {
   }
 
   List<CategorieModel> get getCategoriesList => _categoriesList;
+
+  List<ProductsModel> searchList = [];
+  getSearchList(String search) {
+    searchList = _productsList
+        .where((e) =>
+            e.title?.toLowerCase().contains(search.toLowerCase()) ?? false)
+        .toList();
+    notifyListeners();
+  }
 }

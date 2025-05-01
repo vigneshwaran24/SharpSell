@@ -43,7 +43,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   onTap: () {},
                   leading: Image.network(data.images?.first ?? "",
                       errorBuilder: (context, error, stackTrace) =>
-                          Image.network("https://picsum.photos/250?image=20")),
+                          Image.network(dummyImg)),
                   title: Text(data.title ?? ""),
                 );
               },

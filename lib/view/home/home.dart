@@ -2,6 +2,7 @@ import 'package:ecom_app/core/utls.dart';
 import 'package:ecom_app/view/cart/cart.dart';
 import 'package:ecom_app/view/categories/category.dart';
 import 'package:ecom_app/view/home/widgets/categories_card.dart';
+import 'package:ecom_app/view/home/widgets/search.dart';
 
 import 'package:ecom_app/viewmodel/home_provider/home.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final searchCtr = TextEditingController();
   final productScroll = ScrollController();
   final categoryScroll = ScrollController();
 
@@ -69,11 +69,20 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
-                controller: searchCtr,
-                decoration: InputDecoration(
-                    hintText: "Search here", prefixIcon: Icon(Icons.search)),
-              ),
+              OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5))),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SearchScreen()));
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.search),
+                      Text("Search here"),
+                    ],
+                  )),
               verticalGap(10),
               InkWell(
                   onTap: () {

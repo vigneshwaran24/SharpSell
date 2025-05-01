@@ -44,7 +44,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           TextField(
             controller: searchCtr,
             decoration: InputDecoration(
-                hintText: "Search here", prefixIcon: Icon(Icons.search)),
+                hintText: "Search here",
+                prefixIcon: Icon(Icons.search),
+                focusedBorder: OutlineInputBorder(),
+                border: OutlineInputBorder()),
+            onChanged: (value) {},
           ),
           verticalGap(10),
           Expanded(
@@ -66,7 +70,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   },
                   leading: Image.network(data.image ?? "",
                       errorBuilder: (context, error, stackTrace) =>
-                          Image.network("https://picsum.photos/250?image=20")),
+                          Image.network(dummyImg)),
                   title: Text(data.name ?? ""),
                 );
               },

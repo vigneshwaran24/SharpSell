@@ -55,8 +55,7 @@ class _CartScreenState extends State<CartScreen> {
                             return ListTile(
                               leading: Image.network(data.images?.first ?? "",
                                   errorBuilder: (context, error, stackTrace) =>
-                                      Image.network(
-                                          "https://picsum.photos/250?image=20")),
+                                      Image.network(dummyImg)),
                               title: Text(
                                 cartProv.getCartList[index].title ?? "N/A",
                                 maxLines: 1,
