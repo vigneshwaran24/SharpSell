@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProv = Provider.of<CartProvider>(context);
 
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(
             context,
@@ -44,7 +44,7 @@ class ProductCard extends StatelessWidget {
                 Text(
                   data.title ?? "N/A",
                   style: TextStyle(overflow: TextOverflow.ellipsis),
-                  maxLines: 2,
+                  maxLines: 1,
                 ),
                 verticalGap(10),
                 Text("Rs: ${data.price}")

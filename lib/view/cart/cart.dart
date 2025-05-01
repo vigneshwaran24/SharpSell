@@ -58,7 +58,9 @@ class _CartScreenState extends State<CartScreen> {
                                       Image.network(
                                           "https://picsum.photos/250?image=20")),
                               title: Text(
-                                  cartProv.getCartList[index].title ?? "N/A"),
+                                cartProv.getCartList[index].title ?? "N/A",
+                                maxLines: 1,
+                              ),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

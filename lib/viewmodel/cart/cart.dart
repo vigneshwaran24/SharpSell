@@ -23,7 +23,6 @@ class CartProvider extends ChangeNotifier {
     int sum = 0;
     for (var e in cartList) {
       sum += e.price ?? 0;
-      notifyListeners();
     }
     return sum;
   }

@@ -101,11 +101,12 @@ class _HomePageState extends State<HomePage> {
               Text("Products"),
               verticalGap(10),
               GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisSpacing: 10,
                     crossAxisCount: 2,
-                    childAspectRatio: 1),
+                    childAspectRatio: 2 / 3),
                 itemCount: provider.getProductsList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ProductCard(
