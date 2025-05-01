@@ -89,7 +89,10 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => CategoryScreen()));
                   },
-                  child: Text("Categories")),
+                  child: Text(
+                    "Categories >",
+                    style: TextStyle(decoration: TextDecoration.underline),
+                  )),
               verticalGap(10),
               SizedBox(
                 height: 150,
